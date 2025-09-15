@@ -18,6 +18,27 @@ export default function Home() {
     },
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const isLoaded = document.readyState === "complete";
+      const currentURL = window.location.href;
+
+      if (!isLoaded) {
+        // ตรวจสอบว่าอยู่ vercel หรือ netlify
+        if (currentURL.includes("vercel.app")) {
+          window.location.href = "https://laostar789.netlify.app/";
+        } else if (currentURL.includes("netlify.app")) {
+          window.location.href = "https://laostar789.vercel.app/";
+        } else {
+          // fallback ถ้าอยู่โดเมนอื่น
+          window.location.href = "https://laostar789.vercel.app/";
+        }
+      }
+    }, 10000); // 10 วินาที
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const getLogin = () => {
     window.location.href = "https://app.laostar789.net/";
   };
